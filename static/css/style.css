@@ -1,0 +1,264 @@
+/* DeepAI-style Dark Theme for Legal AI Chatbot - Full Screen */
+
+/* 1. Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* 2. Root Variables for Theming */
+:root {
+    --background-primary: #0C0C14; /* Main background */
+    --background-secondary: #191929; /* Main content background */
+    --background-input: #2D2D4D;
+    --text-primary: #E0E0E0;
+    --text-secondary: #A0A0A0;
+    --accent-primary: #A47DFF; /* Purple for buttons/highlights */
+    --accent-hover: #BF9FFF;
+    --border-color: #2D2D4D;
+    --font-sans: 'Inter', sans-serif;
+}
+
+/* 3. Base Body & Layout Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    display: flex;
+}
+
+.app-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* 4. Main Content Area */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--background-secondary);
+}
+
+/* Top Navbar */
+.top-navbar {
+    display: flex;
+    justify-content: space-between; /* Adjusted for branding */
+    align-items: center;
+    padding: 1rem 2rem;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border-color); /* Added for separation */
+}
+
+.top-navbar .navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.top-navbar .navbar-brand .fa-balance-scale {
+    color: var(--accent-primary);
+}
+
+.top-navbar .btn-new-chat {
+    background-color: var(--accent-primary);
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+}
+.top-navbar .btn-new-chat:hover {
+    background-color: var(--accent-hover);
+}
+
+/* Main Chat Area */
+.chat-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For chat input positioning */
+    width: 100%;
+    max-width: 960px; /* Limits the maximum width */
+    margin: 0 auto;   /* Centers the container horizontally */
+    min-height: 0;    /* MODIFIED: This is the critical fix for scrolling */
+}
+
+/* Chat Messages */
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-top: 1rem;
+    padding-bottom: 120px; /* Space for the input form */
+}
+
+.message {
+    display: flex;
+    align-items: flex-start; 
+    margin-bottom: 1.5rem;
+    max-width: 85%;
+    animation: fadeIn 0.4s ease-out;
+}
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+    margin-right: 1rem;
+}
+.message-content {
+    padding-top: 0; 
+    line-height: 1.6;
+}
+.bot-message .message-avatar {
+    background-color: var(--accent-primary);
+}
+.user-message {
+    flex-direction: row-reverse;
+}
+.user-message .message-avatar {
+    margin-left: 1rem;
+    margin-right: 0;
+    background-color: var(--background-input);
+}
+
+/* Styles for the message bubble */
+.message-bubble {
+    padding: 0.65rem 1rem;
+    border-radius: 18px;
+    background-color: var(--background-input);
+}
+
+/* Different style for the user's message bubble */
+.user-message .message-bubble {
+    background-color: var(--accent-primary);
+    color: #fff;
+}
+
+/* Styles for the timestamp */
+.message-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+}
+
+
+/* 5. Chat Input Footer */
+.chat-input-container {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+}
+
+#chatForm {
+    background-color: var(--background-input);
+    border: 1px solid var(--border-color);
+    border-radius: 12.px;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+#questionInput {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    flex-grow: 1;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+#questionInput:focus {
+    outline: none;
+    box-shadow: none;
+}
+#questionInput::placeholder {
+    color: var(--text-secondary);
+}
+
+#sendButton {
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+#sendButton:hover:not(:disabled) {
+    background-color: var(--accent-hover);
+}
+#sendButton:disabled {
+    background-color: #555;
+    opacity: 0.7;
+}
+
+/* 6. Welcome Screen & Suggestion Chips */
+.welcome-screen {
+    text-align: center;
+    margin: auto;
+    padding-bottom: 150px;
+}
+.welcome-screen h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+.welcome-screen p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+.suggestion-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+.suggestion-chips .chip {
+    background-color: var(--background-input);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.suggestion-chips .chip:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+
+/* 7. Animations & Scrollbar */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--background-input);
+    border-radius: 4px;
+}
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

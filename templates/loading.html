@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Initializing Legal Assistant...{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+    <div class="text-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <h3 class="mt-4">Initializing Legal Assistant</h3>
+        <p id="loadingMessage" class="text-muted">Please wait, the system is preparing the documents...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // This script polls the backend's status and redirects when ready.
+    (function () {
+        const loadingMessage = document.getElementById('loadingMessage');
+
+        async function checkStatus() {
+            try {
+                const response = await fetch("{{ url_for('status') }}");
+                const data = await response.json();
+
+                if (data.status === 'ready') {
+                    // When the system is ready, redirect to the chat page.
+                    window.location.href = "{{ url_for('chat') }}";
+                } else if (data.status === 'error') {
+                    loadingMessage.textContent = `An error occurred: ${data.message}`;
+                    loadingMessage.classList.remove('text-muted');
+                    loadingMessage.classList.add('text-danger');
+                } else {
+                    // If still initializing, update the message and check again.
+                    loadingMessage.textContent = data.message || 'Please wait...';
+                    setTimeout(checkStatus, 3000); // Poll every 3 seconds
+                }
+            } catch (error) {
+                loadingMessage.textContent = 'Could not connect to the server. Please try refreshing the page in a moment.';
+                loadingMessage.classList.add('text-danger');
+            }
+        }
+
+        // Start the first status check.
+        checkStatus();
+    })();
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="chatMessages" class="chat-messages">
+    <div class="welcome-screen">
+        <h1>Legal AI</h1>
+        <p>Your AI-powered legal assistant for understanding the IT Act, 2000.</p>
+        <div class="suggestion-chips">
+            <button class="chip quick-question" data-question="What is cyber crime under IT Act?">Cyber Crime</button>
+            <button class="chip quick-question" data-question="Explain penalties for data breach">Data Breach</button>
+            <button class="chip quick-question" data-question="Powers of cyber appellate tribunal?">Cyber Tribunal</button>
+            <button class="chip quick-question" data-question="Define electronic signature">E-Signature</button>
+        </div>
+    </div>
+    </div>
+
+<div class="chat-input-container">
+    <form id="chatForm">
+        <input type="text" id="questionInput" class="form-control"
+               placeholder="Message Legal AI..."
+               autocomplete="off" disabled>
+        <button type="submit" id="sendButton" disabled>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </form>
+</div>
+{% endblock %}
